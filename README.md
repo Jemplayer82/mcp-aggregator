@@ -82,6 +82,15 @@ All endpoints except `/healthz` require `Authorization: Bearer <AGGREGATOR_MCP_T
 | `/api/servers` | GET | JSON status of every configured backend: connected, tool count, last error |
 | `/api/servers/:id/tools` | GET | raw (unnamespaced) tool list for one backend |
 
+## `[ running more than one instance ]`
+
+The aggregator is generic — nothing hardcodes it to one backend list or one host. Run a separate instance per "trust domain" or physical host by giving each its own `config.json`, port, and token:
+
+- `config.example.json` / `docker-compose.yaml` — the `mcp-shared` backends (memory, github, rag, gsd-browser, gsd-cloud, home-assistant, schwab, ollama, codebase-index, switchboard, searxng, sequential-thinking), port `3117`.
+- `config.billy.example.json` / `docker-compose.billy.yaml` — Billy/Openclaw's internal infra tools (portainer, proxmox, homelable, unifi, ssh, bash-billy), port `3118`. These run as a separate ad-hoc `docker-compose` project directly on that host (`/home/landon/mcp-shared/docker-compose.yml`), not through this repo's Portainer stack — the aggregator just needs their published ports reachable.
+
+Copy whichever `config.*.example.json` fits, rename to `config.json`, adjust `docker-compose*.yaml`'s `CONFIG_PATH`/volume mount and port if running side by side, and deploy independently.
+
 ## `[ how this differs from mcp-switchboard ]`
 
 Switchboard is a message bus *between agents*. This is a tool *aggregator* — it doesn't relay messages, it fans out MCP tool calls to other MCP servers and hands back the results. They're complementary and typically deployed side by side in `mcp-shared`.

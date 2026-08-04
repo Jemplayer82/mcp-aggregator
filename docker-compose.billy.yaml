@@ -1,0 +1,14 @@
+services:
+  mcp-aggregator-billy:
+    image: ghcr.io/jemplayer82/mcp-aggregator:latest
+    environment:
+      AGGREGATOR_MCP_TOKEN: ${AGGREGATOR_MCP_TOKEN}
+      HOMELABLE_API_KEY: ${HOMELABLE_API_KEY}
+    ports:
+      - 3118:3117
+    volumes:
+      - ./config.billy.json:/app/config.json:ro
+      - mcp-aggregator-billy-data:/data
+    restart: unless-stopped
+volumes:
+  mcp-aggregator-billy-data: null

@@ -1,0 +1,10 @@
+{
+  "servers": [
+    { "id": "portainer", "name": "Portainer", "url": "http://192.168.1.19:3104/mcp" },
+    { "id": "proxmox", "name": "Proxmox", "url": "http://192.168.1.19:3110/mcp" },
+    { "id": "homelable", "name": "Homelable", "url": "http://192.168.1.19:3113/mcp", "authEnv": "HOMELABLE_API_KEY", "authHeader": "x-api-key", "authPrefix": "" },
+    { "id": "unifi", "name": "Unifi", "url": "http://192.168.1.19:3112/mcp" },
+    { "id": "ssh", "name": "SSH", "url": "http://192.168.1.19:3111/mcp" },
+    { "id": "bash-billy", "name": "Bash (Billy)", "url": "http://192.168.1.19:3116/mcp" }
+  ]
+}
