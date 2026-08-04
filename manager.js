@@ -32,17 +32,21 @@ class Backend {
       const transport = new StreamableHTTPClientTransport(new URL(this.url), {
         requestInit: { headers: this.headers },
       });
-      const client = new Client({ name: "mcp-aggregator", version: "0.1.0" }, { capabilities: {} });
-      await client.connect(transport);
       // Some supergateway-fronted servers advertise a newer protocolVersion at
       // initialize than the outer supergateway HTTP layer itself validates on
       // subsequent request headers (version skew between the wrapped server's
       // SDK and supergateway's own bundled SDK) -- every request after a
-      // successful initialize then 400s. Pin the header to a version the proxy
-      // actually accepts; the wrapped server itself doesn't inspect it.
-      if (this.protocolVersionOverride && transport.setProtocolVersion) {
-        transport.setProtocolVersion(this.protocolVersionOverride);
+      // successful initialize then 400s, including the notifications/initialized
+      // the SDK's Client.connect() sends itself before we get control back. So
+      // this has to intercept the transport's setProtocolVersion call, not run
+      // after connect() returns -- by then the damaging request already went out.
+      if (this.protocolVersionOverride) {
+        const override = this.protocolVersionOverride;
+        const original = transport.setProtocolVersion.bind(transport);
+        transport.setProtocolVersion = () => original(override);
       }
+      const client = new Client({ name: "mcp-aggregator", version: "0.1.0" }, { capabilities: {} });
+      await client.connect(transport);
       const { tools } = await client.listTools();
       this.client = client;
       this.tools = tools;
