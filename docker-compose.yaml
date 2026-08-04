@@ -1,0 +1,17 @@
+services:
+  mcp-aggregator:
+    image: ghcr.io/jemplayer82/mcp-aggregator:latest
+    environment:
+      AGGREGATOR_MCP_TOKEN: ${AGGREGATOR_MCP_TOKEN}
+      GSD_BROWSER_TOKEN: ${GSD_BROWSER_TOKEN}
+      GSD_CLOUD_TOKEN: ${GSD_CLOUD_TOKEN}
+      HOME_ASSISTANT_TOKEN: ${HOME_ASSISTANT_TOKEN}
+      SWITCHBOARD_TOKEN: ${SWITCHBOARD_TOKEN}
+    ports:
+      - 3117:3117
+    volumes:
+      - ./config.json:/app/config.json:ro
+      - mcp-aggregator-data:/data
+    restart: unless-stopped
+volumes:
+  mcp-aggregator-data: null

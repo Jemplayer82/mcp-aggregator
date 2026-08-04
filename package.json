@@ -1,0 +1,30 @@
+{
+  "name": "mcp-aggregator",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Fans out to multiple MCP backends and exposes them through one streamable-HTTP MCP endpoint with namespaced tools.",
+  "license": "AGPL-3.0-only",
+  "author": "Fathom Consulting LLC",
+  "homepage": "https://github.com/Jemplayer82/mcp-aggregator#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jemplayer82/mcp-aggregator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Jemplayer82/mcp-aggregator/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "aggregator",
+    "proxy",
+    "gateway"
+  ],
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.15.0"
+  }
+}
