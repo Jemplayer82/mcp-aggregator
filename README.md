@@ -68,6 +68,7 @@ Point any MCP client at `http://your-host:3117/mcp` with the printed bearer toke
 | `authEnv` | no | name of an env var holding the backend's token — the actual token lives in `.env`, never in `config.json` |
 | `authHeader` | no | header name to send the token in, default `Authorization` |
 | `authPrefix` | no | prefix before the token value, default `"Bearer "` — set `""` for headers like `x-api-key` |
+| `protocolVersionOverride` | no | pin the `MCP-Protocol-Version` header sent on requests after initialize — works around backends (usually older `supergateway` builds) whose outer HTTP layer validates that header against a version list older than what the wrapped server declared at initialize. See `ollama` in `config.example.json`. |
 
 `config.json` and `.env` are both gitignored. Only `config.example.json` and `.env.example` are tracked.
 

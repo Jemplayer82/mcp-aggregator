@@ -7,7 +7,7 @@
     { "id": "gsd-browser", "name": "GSD Browser", "url": "http://192.168.7.50:8788/mcp", "authEnv": "GSD_BROWSER_TOKEN" },
     { "id": "gsd-cloud", "name": "GSD Cloud Gateway", "url": "http://192.168.7.50:8787/mcp", "authEnv": "GSD_CLOUD_TOKEN" },
     { "id": "schwab", "name": "Schwab", "url": "http://192.168.7.50:3105/mcp" },
-    { "id": "ollama", "name": "Ollama", "url": "http://192.168.7.50:3106/mcp" },
+    { "id": "ollama", "name": "Ollama", "url": "http://192.168.7.50:3106/mcp", "protocolVersionOverride": "2025-06-18" },
     { "id": "home-assistant", "name": "Home Assistant", "url": "http://100.112.40.124:3107/mcp", "authEnv": "HOME_ASSISTANT_TOKEN" },
     { "id": "switchboard", "name": "Switchboard", "url": "http://192.168.7.50:3108/mcp", "authEnv": "SWITCHBOARD_TOKEN" },
     { "id": "codebase-index", "name": "Codebase Index", "url": "http://192.168.7.50:3111/mcp" },

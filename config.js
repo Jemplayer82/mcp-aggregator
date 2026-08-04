@@ -53,6 +53,7 @@ export function loadConfig() {
       name: entry.name || entry.id,
       url: entry.url,
       headers: resolveHeaders(entry),
+      protocolVersionOverride: entry.protocolVersionOverride,
     });
   }
   return { servers };
