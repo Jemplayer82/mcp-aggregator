@@ -86,8 +86,12 @@ All endpoints except `/healthz` require `Authorization: Bearer <AGGREGATOR_MCP_T
 
 The aggregator is generic — nothing hardcodes it to one backend list or one host. Run a separate instance per "trust domain" or physical host by giving each its own `config.json`, port, and token:
 
-- `config.example.json` / `docker-compose.yaml` — the `mcp-shared` backends (memory, github, rag, gsd-browser, gsd-cloud, home-assistant, schwab, ollama, codebase-index, switchboard, searxng, sequential-thinking), port `3117`.
-- `config.billy.example.json` / `docker-compose.billy.yaml` — Billy/Openclaw's internal infra tools (portainer, proxmox, homelable, unifi, ssh, bash-billy), port `3118`. These run as a separate ad-hoc `docker-compose` project directly on that host (`/home/landon/mcp-shared/docker-compose.yml`), not through this repo's Portainer stack — the aggregator just needs their published ports reachable.
+- `config.example.json` / `docker-compose.yaml` — the `mcp-shared` backends (memory, github, rag, gsd-browser, gsd-cloud, home-assistant, schwab, ollama, codebase-index, switchboard, searxng, sequential-thinking). Deployed on the Web Server at `http://192.168.7.50:3119` (port 3117 was taken by `mcp-truenas` by the time this deployed — check for collisions before reusing the default).
+- `config.billy.example.json` / `docker-compose.billy.yaml` — Billy/Openclaw's internal infra tools (portainer, proxmox, homelable, unifi, ssh, bash-billy), port `3118`. Deployed at `http://192.168.1.19:3118`. These backends run as a separate ad-hoc `docker-compose` project directly on that host (`/home/landon/mcp-shared/docker-compose.yml`), not through this repo's Portainer stack — the aggregator just needs their published ports reachable.
+
+Both instances currently run as standalone `docker compose` projects directly on their host (`/home/landon/mcp-aggregator` and `/home/landon/mcp-aggregator-billy` respectively), not as Portainer-tracked stacks — Portainer's `update_stack` API path only supports edge stacks, and `create_regular_stack` needs a compose-file-on-disk workflow this repo doesn't use yet.
+
+**Known backend issues (as of first deploy):** `ollama` (Web Server instance) fails with an MCP protocol-version mismatch — the ollama-mcp server via supergateway doesn't like whatever version the aggregator's client negotiates. `ssh` (Billy instance) 404s on `POST /mcp` — that supergateway instance likely isn't listening on the streamable-HTTP path the aggregator expects. Both backends fail independently without affecting the rest.
 
 Copy whichever `config.*.example.json` fits, rename to `config.json`, adjust `docker-compose*.yaml`'s `CONFIG_PATH`/volume mount and port if running side by side, and deploy independently.
 
