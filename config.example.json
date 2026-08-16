@@ -11,6 +11,7 @@
     { "id": "home-assistant", "name": "Home Assistant", "url": "http://100.112.40.124:3107/mcp", "authEnv": "HOME_ASSISTANT_TOKEN" },
     { "id": "switchboard", "name": "Switchboard", "url": "http://192.168.7.50:3108/mcp", "authEnv": "SWITCHBOARD_TOKEN" },
     { "id": "codebase-index", "name": "Codebase Index", "url": "http://192.168.7.50:3111/mcp" },
-    { "id": "rag", "name": "RAG", "url": "http://192.168.7.50:3113/mcp" }
+    { "id": "rag", "name": "RAG", "url": "http://192.168.7.50:3113/mcp" },
+    { "id": "impeccable", "name": "Impeccable", "url": "http://192.168.7.50:3112/mcp", "authEnv": "IMPECCABLE_MCP_TOKEN" }
   ]
 }
